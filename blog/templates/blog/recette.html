@@ -1,0 +1,48 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+			{%for recette in recette%}
+			<article>
+				<header><img class="imgRecette" src="/static/blog/{{recette.photo}}" alt="Image du plat" />
+					<h1 class="titreRecette"> {{recette.titre}} </h1><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span></br><time> 07/01/2019 </time>
+				</header>
+				<p> {{recette.description}} </p>
+			</article>
+			<hr />
+			<header>
+				<h2 id="titreIngredient"> Ingrédients </h2>
+				<ul>
+					{% for ingredient in recette.ingredients.all %}
+					<li>{{ingredient.quantite}} {{ingredient.unit}} {{ingredient.nom}}</li>
+					{% endfor %}
+				</ul>
+			</header>
+			<h2 id="titreCommentaire"> Commentaires </h2>
+			{% for commentaire in commentaires %}
+			<div class="divCommentaire">
+				<p>{{commentaire.auteur}} </p>
+				<p> {{commentaire.contenu}}</p>
+				<p> {{commentaire.note}}</p>
+				<hr>
+			{% endfor %}
+				
+			
+			<form action="" method="post">
+				{% csrf_token %}
+				{{form.as_p}}
+			<input type="submit" value="Submit" /></form>
+			{% if messages %}
+			<ul class="messages">
+				{% for message in messages %}
+				<li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			</div>
+			<div id="erreur">
+				<p> Erreurs </p>
+			</div>
+			{%endfor%}
+
+{% endblock %}

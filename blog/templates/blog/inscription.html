@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Inscription</h1>
+<form action="inscription" method="post">
+	{% csrf_token %}
+	{{ form_inscription.as_p }}
+<input type="submit" value="Submit" />
+</form>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

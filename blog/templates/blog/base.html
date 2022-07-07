@@ -1,0 +1,47 @@
+{% load static %}
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}" />
+    <title>{% block title%}Mon Blog de Recettes{% endblock %}</title>
+</head>
+
+<body>
+    <header id="header"><a href="/">
+            <h1 id="titreBlog">Mon Blog de Recettes</h1>
+        </a>
+        <div style="width:300px;margin:20px auto;">Bienvenue sur mon blog de recettes</div>
+        <nav id="loginBar">
+            {% if p.pseudo %}
+                Hello {{ p.pseudo }}
+                <div class="login"><a class="primaryBtn login" href="logout">Deco</a></div>
+            {% else %}
+            <div class="login"><a class="primaryBtn login" href="inscription">Inscription</a></div>
+            <div class="login"><a class="primaryBtn login" href="login">Login</a></div>
+            {% endif %}
+        </nav>
+    </header>
+
+    <div id="global">
+        {% block categorie_nav %}
+        <div id="categorie">
+            <ul>
+                {% for categorie in categories %}
+                <li {% if idcategorie == categorie.id %}class="selected"{% endif %}>
+                    <a href="{% url 'categorie' categorie.id %}">{{categorie.nom}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endblock %}
+
+        {% block content%} {% endblock %}
+        </div>
+    </div>
+
+        <footer id="piedBlog"> Blog réalisé par Rayan Barama</footer>
+</body>
+
+</html>
